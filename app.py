@@ -18,21 +18,6 @@ with open('flights.csv', mode='r') as csv_file:
         line_count += 1
         flight_list.append(row)
 
-posts = [
-    {
-        'author': 'Jrew Mohamed',
-        'title': 'Blog Post 1',
-        'content': 'First post content',
-        'date_posted': 'April 6, 1994'
-    },
-    {
-        'author': 'Jasmine Mohamed',
-        'title': 'Blog Post 2',
-        'content': 'Second post content',
-        'date_posted': 'July 11, 1995'
-    }
-]
-
 
 @app.route('/about')
 def about():
@@ -44,7 +29,7 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         flash(f'Account created for {form.username.data}!', 'success')
-        return redirect(url_for('home'))
+        return redirect(url_for('flights'))
     return render_template('register.html', title='Register', form=form)
 
 
@@ -54,7 +39,7 @@ def login():
     if form.validate_on_submit():
         if form.email.data == 'admin@blog.com' and form.password.data == 'password':
             flash(f'You have been logged in!', 'success')
-            return redirect(url_for('home'))
+            return redirect(url_for('flights'))
         else:
             flash(f'Login Unsuccessful. Please check username and password', 'danger')
     return render_template('login.html', title='Login', form=form)
