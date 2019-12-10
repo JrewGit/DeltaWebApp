@@ -1,0 +1,86 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="content-section">
+    <form method="POST" action="" autocomplete="off">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Book a Flight</legend>
+            <div class="form-group autocomplete">
+                {{ form.origin.label(class="form-control-label") }}
+                {% if form.origin.errors %}
+                {{ form.origin(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.origin.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.origin(class="form-control form-control-lg", id="myInput", type="text")}}
+                {% endif %}
+
+            </div>
+            <div class="form-group autocomplete">
+                {{ form.destination.label(class="form-control-label") }}
+                {% if form.destination.errors %}
+                {{ form.destination(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.destination.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.destination(class="form-control form-control-lg", id="myInput2", type="text") }}
+                {% endif %}
+            </div>
+        </fieldset>
+<!--        Research methods that register user keypress instead of submit-->
+        <div class="form-group">
+            {{ form.submit(class="btn btn-outline-info") }}
+        </div>
+    </form>
+    {% if final_flight_list  %}
+    <table class="table table-striped table-responsive">
+        <thead>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">created_at</th>
+            <th scope="col">updated_at</th>
+            <th scope="col">flight_identifier</th>
+            <th scope="col">flt_num</th>
+            <th scope="col">scheduled_origin_gate</th>
+            <th scope="col">scheduled_destination_gate</th>
+            <th scope="col">out_gmt</th>
+            <th scope="col">in_gmt</th>
+            <th scope="col">off_gmt</th>
+            <th scope="col">on_gmt</th>
+            <th scope="col">destination</th>
+            <th scope="col">origin</th>
+            <th scope="col">destination_full_name</th>
+            <th scope="col">origin_full_name</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for flight in final_flight_list %}
+        <tr>
+            <th scope="row">{{ flight.id }}</th>
+            <td>{{ flight.created_at }}</td>
+            <td>{{ flight.updated_at }}</td>
+            <td>{{ flight.flight_identifier }}</td>
+            <td>{{ flight.flt_num }}</td>
+            <td>{{ flight.scheduled_origin_gate }}</td>
+            <td>{{ flight.scheduled_destination_gate }}</td>
+            <td>{{ flight.out_gmt }}</td>
+            <td>{{ flight.in_gmt }}</td>
+            <td>{{ flight.off_gmt }}</td>
+            <td>{{ flight.on_gmt }}</td>
+            <td>{{ flight.destination }}</td>
+            <td>{{ flight.origin }}</td>
+            <td>{{ flight.destination_full_name }}</td>
+            <td>{{ flight.origin_full_name }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+</div>
+{% endblock content %}
