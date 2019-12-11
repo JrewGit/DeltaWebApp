@@ -14,7 +14,7 @@ Create a web application that allows a user to search for flights and display th
 
 ## Datasource
 
-A zipped CSV file of flights is available in /data/flights.csv. Each row in the CSV file represents a flight.
+A CSV file of flights is available in the flights.csv file. Each row in the CSV file represents a flight.
 
 ## Usage
 
@@ -34,6 +34,8 @@ table below the form.
 
 4. In addition to the '/' route, at the route '/<origin_city>/<destination_city' you will be able to fill in the
 'origin_city' and 'destination_city' variables for the same functionality available to you as the form.
+
+5. There is also a '/registration' and '/login' route for added functionality.
 
 ## Closing
 
