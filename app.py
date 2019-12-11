@@ -72,8 +72,8 @@ def flights():
     return render_template('flights.html', title='Flight', form=form, final_flight_list=final_flight_list)
 
 
-@app.route('/origin/<city>', methods=['GET', 'POST'])
-def origin(city):
+@app.route('/<origin_city>/<destination_city>', methods=['GET', 'POST'])
+def origin(origin_city, destination_city):
     final_flight_list = []
     stations = []
     station_count = 0
@@ -81,21 +81,20 @@ def origin(city):
     form = FlightForm()
 
     # Logic for flight lookup
-    if form.validate_on_submit():
-        for flight in flight_list:
-            if flight['origin'] not in stations:
-                stations.append(flight['origin'])
-                station_count += 1
-            if flight['destination'] not in stations:
-                stations.append(flight['destination'])
-                station_count += 1
-            if flight['origin'] == city and flight['destination'] == 'SAV':
-                count += 1
-                final_flight_list.append(flight)
-        if count > 0:
-            flash(f'There are {count} flights that match your criteria!', 'success')
-        else:
-            flash(f'There are no flights that match your criteria!', 'danger')
+    for flight in flight_list:
+        if flight['origin'] not in stations:
+            stations.append(flight['origin'])
+            station_count += 1
+        if flight['destination'] not in stations:
+            stations.append(flight['destination'])
+            station_count += 1
+        if flight['origin'] == origin_city.upper() and flight['destination'] == destination_city.upper():
+            count += 1
+            final_flight_list.append(flight)
+    if count > 0:
+        flash(f'There are {count} flights that match your criteria!', 'success')
+    else:
+        flash(f'There are no flights that match your criteria!', 'danger')
 
     return render_template('flights.html', title='Flight', form=form, final_flight_list=final_flight_list)
 
